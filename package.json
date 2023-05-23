@@ -1,0 +1,27 @@
+{
+  "name": "payment-confirmation",
+  "version": "1.0.0",
+  "description": "Lambda function that send email with NF-e attached",
+  "main": "handler.js",
+  "scripts": {
+    "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/handler.ts",
+    "prebuild": "",
+    "build": "",
+    "deploy": ""
+  },
+  "keywords": [
+    "lambda",
+    "serverless",
+    "node"
+  ],
+  "author": "Adriel Ripoll",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.1382.0",
+    "pdf-lib": "^1.17.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.2.3",
+    "ts-node-dev": "^2.0.0"
+  }
+}
