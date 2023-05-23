@@ -1,5 +1,5 @@
 import { S3, SES } from 'aws-sdk'
-import { PutObjectRequest, PutObjectAclOutput } from 'aws-sdk/clients/s3'
+import { PutObjectRequest, ManagedUpload } from 'aws-sdk/clients/s3'
 import { SendRawEmailRequest } from 'aws-sdk/clients/ses'
 import { randomUUID } from 'crypto'
 import { PDFDocument } from 'pdf-lib'
@@ -8,12 +8,12 @@ interface Recipient {
     email: string
 }
 
-const sendEmail = (recipient: Recipient, object: PutObjectAclOutput) => {
+const sendEmail = (recipient: Recipient, object: ManagedUpload.SendData) => {
     const ses = new SES({
         region: process.env.AWS_REGION,
-        apiVersion: ''
+        apiVersion: '2010-12-01'
     })
-    
+
     const emailParams: SendRawEmailRequest = {
         Source: process.env.SOURCE,
         Destinations: [recipient.email],
@@ -38,15 +38,14 @@ const saveObject = async () => {
         Body: filecontent
     }
     
-    const object = await s3.putObject(params).promise()
-    console.log(object)
+    const object = await s3.upload(params).promise()
     return object
 }
 
 const createFile = async (): Promise<Uint8Array> => {
     const pdfDoc = await PDFDocument.create()
     const page = pdfDoc.addPage()
-    page.drawText('nf-e')
+    page.drawText('Eletronic invoice')
     const bytes = await pdfDoc.save()
     return bytes
 }
