@@ -6,8 +6,7 @@
   "scripts": {
     "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/index.ts",
     "build": "tsc && cp -R package.json build",
-    "postbuild":"cd build && npm install --only=production && zip -r index.zip *.js package.json node_modules",
-    "deploy": ""
+    "postbuild":"cd build && npm install --only=production && zip -r index.zip *.js package.json node_modules"
   },
   "author": "Adriel Ripoll",
   "license": "ISC",
